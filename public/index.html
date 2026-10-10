@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Gringo despensa</title>
+<link rel="icon" href="/img/ui/icono.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="min-h-screen pb-32">
+
+<header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-100 px-4 py-4">
+  <div class="max-w-md mx-auto flex items-center justify-between">
+    <div>
+      <h1 class="text-xl font-bold tracking-tight text-slate-900 leading-tight">El Gringo</h1>
+      <p class="text-xs font-medium text-emerald-600 tracking-wide uppercase">despensa</p>
+    </div>
+    <div onclick="abrirCarrito()" class="flex items-center space-x-2 bg-slate-100 active:bg-slate-200 px-3 py-1.5 rounded-full cursor-pointer">
+      <span id="header-total" class="text-sm font-semibold text-slate-800">$0</span>
+      <div class="relative flex items-center justify-center text-slate-700">
+        <i class="fa-solid fa-cart-shopping text-sm"></i>
+        <span id="header-counter" style="display:none" class="absolute -top-2 -right-2.5 bg-emerald-600 text-white text-[10px] font-bold min-w-[16px] h-4 px-1 rounded-full items-center justify-center">0</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-md mx-auto px-4 pt-4">
+  <div class="relative mb-3">
+    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+    <input id="buscador" type="search" placeholder="Buscar producto..." oninput="buscar(this.value)"
+      class="w-full bg-white border border-slate-200 rounded-2xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:border-emerald-500">
+  </div>
+
+  <div class="flex items-center gap-2 mb-3">
+    <i class="fa-solid fa-arrow-down-wide-short text-slate-400 text-sm"></i>
+    <select id="orden" onchange="cambiarOrden(this.value)"
+      class="flex-1 bg-white border border-slate-200 rounded-2xl px-3 py-2 text-sm text-slate-700 focus:outline-none focus:border-emerald-500">
+      <option value="az">Nombre: A → Z</option>
+      <option value="za">Nombre: Z → A</option>
+      <option value="menor">Precio: menor a mayor</option>
+      <option value="mayor">Precio: mayor a menor</option>
+    </select>
+  </div>
+
+  <div id="categorias" class="flex gap-2 overflow-x-auto no-scrollbar pb-2 mb-3"></div>
+
+  <div class="flex items-center justify-between mb-3">
+    <h2 id="section-title" class="text-sm font-bold uppercase tracking-wider text-slate-400">Productos</h2>
+    <span id="section-count" class="text-xs text-slate-400 font-medium"></span>
+  </div>
+
+  <div id="product-grid" class="grid grid-cols-3 gap-3"></div>
+</main>
+
+<nav class="barra fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-100 shadow-lg">
+  <div class="max-w-md mx-auto relative h-20 flex items-center justify-around px-6">
+    <div class="absolute -top-8 left-1/2 -translate-x-1/2 w-20 h-20 bg-white rounded-full border border-slate-100 flex items-center justify-center shadow-md">
+      <button onclick="irInicio()" class="w-14 h-14 bg-emerald-50 active:bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center active:scale-95 shadow-inner">
+        <i class="fa-solid fa-house text-xl"></i>
+      </button>
+    </div>
+
+    <button id="tab-offers" onclick="filtrarTab('offers')" class="flex flex-col items-center justify-center text-slate-400 pt-2">
+      <div class="relative">
+        <i class="fa-solid fa-gift text-xl"></i>
+        <span class="absolute -top-1 -right-1 w-2 h-2 bg-rose-500 rounded-full"></span>
+      </div>
+      <span class="text-[10px] font-medium mt-1 tracking-wide">oferta</span>
+    </button>
+
+    <div class="w-12"></div>
+
+    <button onclick="abrirCarrito()" class="flex flex-col items-center justify-center text-slate-400 pt-2">
+      <div class="relative">
+        <i class="fa-solid fa-cart-shopping text-xl"></i>
+        <span id="nav-cart-counter" style="display:none" class="absolute -top-1 -right-2 bg-emerald-600 text-white text-[9px] font-bold px-1 rounded-full">0</span>
+      </div>
+      <span class="text-[10px] font-medium mt-1 tracking-wide">carrito</span>
+    </button>
+  </div>
+</nav>
+
+<div id="cart-modal" onclick="if(event.target===this)cerrarCarrito()" style="display:none"
+  class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm items-end justify-center">
+  <div class="bg-white w-full max-w-md rounded-t-3xl p-5 max-h-[88vh] flex flex-col shadow-2xl">
+    <div class="flex items-center justify-between pb-3">
+      <div class="flex bg-slate-100 rounded-full p-1 text-sm font-semibold">
+        <button id="tab-carrito" onclick="mostrarTab('carrito')" class="px-4 py-1.5 rounded-full bg-white shadow text-slate-900">Carrito</button>
+        <button id="tab-pedidos" onclick="mostrarTab('pedidos')" class="px-4 py-1.5 rounded-full text-slate-500">Mis pedidos</button>
+      </div>
+      <button onclick="cerrarCarrito()" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+    </div>
+
+    <div id="panel-carrito" class="flex flex-col flex-1 min-h-0 border-t border-slate-100 pt-3">
+      <div id="aviso-edicion" style="display:none" class="bg-amber-50 text-amber-700 text-xs rounded-xl px-3 py-2 mb-2">
+        Editando el pedido <b id="aviso-edicion-codigo"></b>
+      </div>
+      <div id="cart-items-container" class="overflow-y-auto flex-1 space-y-3 pb-3"></div>
+      <div class="pt-3 border-t border-slate-100">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-slate-500 text-sm">Total a pagar</span>
+          <span id="modal-total" class="text-xl font-bold text-slate-900">$0</span>
+        </div>
+        <button id="btn-comprar" onclick="comprar()" class="w-full bg-emerald-600 active:bg-emerald-700 disabled:opacity-60 text-white font-semibold py-3 rounded-2xl shadow-sm">Comprar</button>
+        <p class="text-[11px] text-slate-400 text-center mt-2">Al comprar se genera tu comprobante para enviar por WhatsApp.</p>
+        <button id="btn-cancelar-edicion" onclick="cancelarEdicion()" style="display:none" class="w-full text-xs text-slate-500 mt-3">Cancelar edición</button>
+        <button id="btn-vaciar" onclick="vaciarCarrito()" class="w-full text-xs text-slate-400 mt-3">Vaciar carrito</button>
+      </div>
+    </div>
+
+    <div id="panel-pedidos" style="display:none" class="flex flex-col flex-1 min-h-0 border-t border-slate-100 pt-3">
+      <div id="lista-pedidos" class="overflow-y-auto flex-1 space-y-3 pb-2"></div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white text-xs px-4 py-2 rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+<script src="/js/carrito.js"></script>
+<script src="/js/pedidos.js"></script>
+<script src="/js/catalogo.js"></script>
+</body>
+</html>

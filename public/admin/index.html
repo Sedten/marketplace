@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Admin - El Gringo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/styles.css">
+<style>
+  .campo { width:100%; background:#fff; border:1px solid #e2e8f0; border-radius:1rem; padding:.6rem .75rem; font-size:.875rem; }
+  .campo:focus { outline:none; border-color:#10b981; }
+  .campo:disabled { background:#f1f5f9; color:#94a3b8; }
+  label.et { display:block; font-size:.7rem; font-weight:600; color:#64748b; margin-bottom:.25rem; }
+</style>
+</head>
+<body class="min-h-screen pb-10">
+
+<header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-100 px-4 py-4">
+  <div class="max-w-md mx-auto flex items-center justify-between">
+    <div>
+      <h1 class="text-xl font-bold tracking-tight text-slate-900 leading-tight">Panel admin</h1>
+      <p class="text-xs font-medium text-emerald-600 tracking-wide uppercase">El Gringo despensa</p>
+    </div>
+    <a href="/" class="text-xs font-semibold text-slate-600 bg-slate-100 px-3 py-2 rounded-full">
+      <i class="fa-solid fa-store mr-1"></i>Ver tienda
+    </a>
+  </div>
+</header>
+
+<nav class="max-w-md mx-auto px-4 pt-3 flex gap-2 text-xs font-semibold overflow-x-auto no-scrollbar">
+  <a href="/admin/" class="px-3.5 py-1.5 rounded-full bg-emerald-600 text-white">Productos</a>
+  <a href="/vendedor/" class="px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600">Pedidos</a>
+  <a href="/admin/resumen.html" class="px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600">Resumen</a>
+  <a href="/admin/horarios.html" class="px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600">Horarios</a>
+  <button onclick="salir()" class="px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600">Salir</button>
+</nav>
+
+<main class="max-w-md mx-auto px-4 pt-4">
+  <div class="flex gap-2 mb-3">
+    <div class="relative flex-1">
+      <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+      <input id="buscar" type="search" placeholder="Buscar producto..." oninput="render()" class="campo" style="padding-left:2.2rem">
+    </div>
+    <button onclick="nuevo()" class="shrink-0 bg-emerald-600 active:bg-emerald-700 text-white text-sm font-semibold px-4 rounded-2xl">
+      <i class="fa-solid fa-plus mr-1"></i>Nuevo
+    </button>
+  </div>
+
+  <p id="conteo" class="text-xs text-slate-400 font-medium mb-3"></p>
+  <div id="lista" class="space-y-2"></div>
+</main>
+
+<div id="form-modal" style="display:none" onclick="if(event.target===this)cerrarForm()"
+  class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm items-end justify-center">
+  <div class="bg-white w-full max-w-md rounded-t-3xl p-5 max-h-[92vh] overflow-y-auto">
+    <div class="flex items-center justify-between mb-4">
+      <h3 id="form-titulo" class="text-lg font-bold text-slate-900">Producto</h3>
+      <button onclick="cerrarForm()" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+    </div>
+
+    <div class="space-y-3">
+      <div>
+        <label class="et" for="f-nombre">Nombre</label>
+        <input id="f-nombre" type="text" class="campo" maxlength="80">
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="et" for="f-categoria">Categoría</label>
+          <input id="f-categoria" type="text" list="categorias-dl" class="campo" maxlength="40">
+          <datalist id="categorias-dl"></datalist>
+        </div>
+        <div>
+          <label class="et" for="f-unidad">Unidad</label>
+          <select id="f-unidad" class="campo">
+            <option value="unidad">Unidad</option>
+            <option value="bulto">Bulto</option>
+            <option value="caja">Caja</option>
+            <option value="kg">Kg</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="et" for="f-precio">Precio</label>
+          <input id="f-precio" type="text" inputmode="decimal" class="campo" placeholder="0">
+        </div>
+        <div>
+          <label class="et" for="f-precio-oferta">Precio de oferta</label>
+          <input id="f-precio-oferta" type="text" inputmode="decimal" class="campo" placeholder="0" disabled>
+        </div>
+      </div>
+
+      <label class="flex items-center gap-2 text-sm text-slate-700">
+        <input id="f-oferta" type="checkbox" onchange="alternarOferta()" class="w-4 h-4 accent-emerald-600">
+        Producto en oferta
+      </label>
+
+      <div>
+        <label class="et">Imagen</label>
+        <div class="flex items-center gap-3">
+          <img id="f-preview" src="/img/productos/null.jpg" alt=""
+            class="w-20 h-20 rounded-2xl object-cover bg-slate-100 border border-slate-200"
+            onerror="this.onerror=null;this.src='/img/productos/null.jpg'">
+          <div class="flex-1 space-y-2">
+            <button type="button" onclick="document.getElementById('f-archivo').click()"
+              class="w-full bg-slate-100 active:bg-slate-200 text-slate-700 text-sm font-semibold py-2 rounded-xl">
+              <i class="fa-solid fa-camera mr-1"></i>Subir foto
+            </button>
+            <select id="f-imagen-sel" onchange="elegirImagen(this.value)" class="campo" style="padding:.4rem .6rem;font-size:.75rem"></select>
+          </div>
+        </div>
+        <input id="f-archivo" type="file" accept="image/*" style="display:none" onchange="subirFoto(this)">
+        <p id="f-subiendo" style="display:none" class="text-xs text-emerald-600 mt-1">Subiendo foto...</p>
+      </div>
+
+      <label class="flex items-center gap-2 text-sm text-slate-700">
+        <input id="f-activo" type="checkbox" class="w-4 h-4 accent-emerald-600">
+        Visible en la tienda
+      </label>
+
+      <p id="f-error" class="text-xs text-rose-600 font-medium"></p>
+
+      <button onclick="guardar()" class="w-full bg-emerald-600 active:bg-emerald-700 text-white font-semibold py-3 rounded-2xl shadow-sm">
+        Guardar
+      </button>
+      <button id="f-eliminar" onclick="eliminarProducto()" class="w-full text-sm text-rose-500 font-medium py-1">
+        Eliminar producto
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-[60] bg-slate-900 text-white text-xs px-4 py-2 rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+<script src="/admin/admin.js"></script>
+</body>
+</html>

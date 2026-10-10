@@ -1,0 +1,7 @@
+id,nombre,precio,imagen,categoria,unidad,oferta,precio_oferta,activo
+1,Coca-Cola 2L,2500,coca-cola-2l-muutpuad.jpg,Bebidas,unidad,false,,true
+2,Coca-Cola 2L x6,13500,coca-cola-2l-x6-mv2r52g0.webp,Bebidas,bulto,true,12000,true
+3,Salame,9000,null.jpg,Fiambres,kg,false,,true
+4,Maple de Huevo,6000,maple-de-huevo-muuttyps.jpg,despensa,bulto,false,,true
+5,9 de oro,1300,9-de-oro-mv2r3jpt.webp,golosinas,unidad,false,,true
+6,9 de oro x10,1300,9-de-oro-x10-mv2r4ade.webp,golosinas,caja,true,1200,true

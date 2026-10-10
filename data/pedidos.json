@@ -1,0 +1,276 @@
+{
+  "ultimo": 5,
+  "pedidos": [
+    {
+      "id": 1,
+      "codigo": "GRN-0001-VUJ",
+      "cliente": "c-3b9a7b11fcfb",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Coca-Cola 2L",
+          "unidad": "unidad",
+          "precio": 2500,
+          "cantidad": 1,
+          "subtotal": 2500
+        },
+        {
+          "id": 2,
+          "nombre": "Coca-Cola 2L x6",
+          "unidad": "bulto",
+          "precio": 12000,
+          "cantidad": 1,
+          "subtotal": 12000
+        },
+        {
+          "id": 4,
+          "nombre": "Maple de Huevo",
+          "unidad": "bulto",
+          "precio": 6000,
+          "cantidad": 2,
+          "subtotal": 12000
+        }
+      ],
+      "total": 26500,
+      "estado": "cancelado",
+      "creado": "2026-10-07T01:37:46.637Z",
+      "actualizado": "2026-10-07T02:29:06.758Z",
+      "claveHash": "30bc583d0366c6f803210f0da50d4e7ef3e2600ec73f0ee2e3563f14e05d3516",
+      "historial": [
+        {
+          "evento": "creado",
+          "por": "cliente",
+          "fecha": "2026-10-07T01:37:46.637Z"
+        },
+        {
+          "evento": "cancelado",
+          "por": "cliente",
+          "fecha": "2026-10-07T01:38:39.923Z"
+        },
+        {
+          "evento": "en_espera",
+          "por": "admin",
+          "fecha": "2026-10-07T02:26:17.398Z"
+        },
+        {
+          "evento": "pagado",
+          "por": "admin",
+          "fecha": "2026-10-07T02:26:21.528Z"
+        },
+        {
+          "evento": "en_proceso",
+          "por": "admin",
+          "fecha": "2026-10-07T02:27:36.810Z"
+        },
+        {
+          "evento": "en_espera",
+          "por": "admin",
+          "fecha": "2026-10-07T02:27:46.418Z"
+        },
+        {
+          "evento": "cancelado",
+          "por": "admin",
+          "fecha": "2026-10-07T02:29:06.758Z"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "codigo": "GRN-0002-F4F",
+      "cliente": "c-3b9a7b11fcfb",
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Coca-Cola 2L x6",
+          "unidad": "bulto",
+          "precio": 12000,
+          "cantidad": 6,
+          "subtotal": 72000
+        },
+        {
+          "id": 3,
+          "nombre": "Salame",
+          "unidad": "kg",
+          "precio": 9000,
+          "cantidad": 1,
+          "subtotal": 9000
+        },
+        {
+          "id": 4,
+          "nombre": "Maple de Huevo",
+          "unidad": "bulto",
+          "precio": 6000,
+          "cantidad": 3,
+          "subtotal": 18000
+        }
+      ],
+      "total": 99000,
+      "estado": "pagado",
+      "creado": "2026-10-07T01:38:56.530Z",
+      "actualizado": "2026-10-07T02:09:44.347Z",
+      "claveHash": "3ab64010790709df8f0bdb5c0ce46345ca8988cbc5973f14d59d373731f7ee91",
+      "historial": [
+        {
+          "evento": "creado",
+          "por": "cliente",
+          "fecha": "2026-10-07T01:38:56.530Z"
+        },
+        {
+          "evento": "modificado",
+          "por": "cliente",
+          "fecha": "2026-10-07T01:41:15.757Z"
+        },
+        {
+          "evento": "modificado",
+          "por": "cliente",
+          "fecha": "2026-10-07T01:46:12.647Z"
+        },
+        {
+          "evento": "en_proceso",
+          "por": "vendedor",
+          "fecha": "2026-10-07T02:08:39.030Z"
+        },
+        {
+          "evento": "pagado",
+          "por": "vendedor",
+          "fecha": "2026-10-07T02:09:44.347Z"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "codigo": "GRN-0003-82S",
+      "cliente": "c-3b9a7b11fcfb",
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Coca-Cola 2L x6",
+          "unidad": "bulto",
+          "precio": 12000,
+          "cantidad": 18,
+          "subtotal": 216000
+        },
+        {
+          "id": 4,
+          "nombre": "Maple de Huevo",
+          "unidad": "bulto",
+          "precio": 6000,
+          "cantidad": 10,
+          "subtotal": 60000
+        }
+      ],
+      "total": 276000,
+      "estado": "pagado",
+      "creado": "2026-10-07T02:25:16.075Z",
+      "actualizado": "2026-10-09T02:19:33.771Z",
+      "claveHash": "c1c1dbfec2adb5e8b14ad11a8aee3f7de800877dc5f76ac4d9a70f9c144595d5",
+      "historial": [
+        {
+          "evento": "creado",
+          "por": "cliente",
+          "fecha": "2026-10-07T02:25:16.075Z"
+        },
+        {
+          "evento": "pagado",
+          "por": "admin",
+          "fecha": "2026-10-07T02:26:09.904Z"
+        },
+        {
+          "evento": "en_proceso",
+          "por": "admin",
+          "fecha": "2026-10-07T02:28:15.298Z"
+        },
+        {
+          "evento": "pagado",
+          "por": "vendedor",
+          "fecha": "2026-10-09T02:19:33.771Z"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "codigo": "GRN-0004-TF9",
+      "cliente": "c-3b9a7b11fcfb",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Coca-Cola 2L",
+          "unidad": "unidad",
+          "precio": 2500,
+          "cantidad": 1,
+          "subtotal": 2500
+        },
+        {
+          "id": 2,
+          "nombre": "Coca-Cola 2L x6",
+          "unidad": "bulto",
+          "precio": 12000,
+          "cantidad": 1,
+          "subtotal": 12000
+        },
+        {
+          "id": 4,
+          "nombre": "Maple de Huevo",
+          "unidad": "bulto",
+          "precio": 6000,
+          "cantidad": 1,
+          "subtotal": 6000
+        }
+      ],
+      "total": 20500,
+      "estado": "cancelado",
+      "creado": "2026-10-07T09:51:47.467Z",
+      "actualizado": "2026-10-09T02:39:09.788Z",
+      "claveHash": "f5f265a22d184cd646b831373f6b365ea845664e40d80c7466cf310c52175ade",
+      "historial": [
+        {
+          "evento": "creado",
+          "por": "cliente",
+          "fecha": "2026-10-07T09:51:47.467Z"
+        },
+        {
+          "evento": "cancelado",
+          "por": "cliente",
+          "fecha": "2026-10-08T21:31:41.482Z"
+        },
+        {
+          "evento": "en_espera",
+          "por": "admin",
+          "fecha": "2026-10-09T02:39:02.198Z"
+        },
+        {
+          "evento": "cancelado",
+          "por": "admin",
+          "fecha": "2026-10-09T02:39:09.788Z"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "codigo": "GRN-0005-J2N",
+      "cliente": "",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Coca-Cola 2L",
+          "unidad": "unidad",
+          "precio": 2500,
+          "cantidad": 1,
+          "subtotal": 2500
+        }
+      ],
+      "total": 2500,
+      "estado": "en_espera",
+      "creado": "2026-10-10T20:11:36.635Z",
+      "actualizado": "2026-10-10T20:11:36.635Z",
+      "claveHash": "0676034890c8668f862b6d63dc8664e8c626176387f7797d3ef401046a6e4628",
+      "historial": [
+        {
+          "evento": "creado",
+          "por": "cliente",
+          "fecha": "2026-10-10T20:11:36.635Z"
+        }
+      ]
+    }
+  ]
+}

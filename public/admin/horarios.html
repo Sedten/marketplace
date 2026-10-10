@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Horarios - El Gringo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/styles.css">
+<style>
+  .campo { width:100%; background:#fff; border:1px solid #e2e8f0; border-radius:1rem; padding:.6rem .75rem; font-size:.875rem; }
+  .campo:focus { outline:none; border-color:#10b981; }
+  label.et { display:block; font-size:.7rem; font-weight:600; color:#64748b; margin-bottom:.25rem; }
+</style>
+</head>
+<body class="min-h-screen pb-10">
+
+<header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-100 px-4 py-4">
+  <div class="max-w-md mx-auto">
+    <h1 class="text-xl font-bold tracking-tight text-slate-900 leading-tight">Horarios</h1>
+    <p class="text-xs font-medium text-emerald-600 tracking-wide uppercase">Toma de pedidos y pagos</p>
+  </div>
+</header>
+
+<nav class="max-w-md mx-auto px-4 pt-3 flex gap-2 text-xs font-semibold overflow-x-auto no-scrollbar">
+  <a href="/admin/" class="px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600">Productos</a>
+  <a href="/vendedor/" class="px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600">Pedidos</a>
+  <a href="/admin/resumen.html" class="px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600">Resumen</a>
+  <a href="/admin/horarios.html" class="px-3.5 py-1.5 rounded-full bg-emerald-600 text-white">Horarios</a>
+  <button onclick="salir()" class="px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600">Salir</button>
+</nav>
+
+<main class="max-w-md mx-auto px-4 pt-4 space-y-4">
+  <div id="estado" class="bg-white rounded-2xl border border-slate-100 p-4 text-sm text-slate-700">Cargando...</div>
+
+  <div class="bg-white rounded-2xl border border-slate-100 p-4 space-y-4">
+    <div>
+      <label class="et" for="modo">Modo</label>
+      <select id="modo" class="campo">
+        <option value="auto">Automático (según el horario)</option>
+        <option value="abierto">Forzar abierto</option>
+        <option value="cerrado">Forzar cerrado</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="et">Se abre la toma de pedidos</label>
+      <div class="grid grid-cols-2 gap-3">
+        <select id="abre-dia" class="campo"></select>
+        <input id="abre-hora" type="time" class="campo">
+      </div>
+    </div>
+
+    <div>
+      <label class="et">Se cierra la toma de pedidos</label>
+      <div class="grid grid-cols-2 gap-3">
+        <select id="cierra-dia" class="campo"></select>
+        <input id="cierra-hora" type="time" class="campo">
+      </div>
+    </div>
+
+    <div>
+      <label class="et">Plazo de pago (aviso importante)</label>
+      <div class="grid grid-cols-2 gap-3">
+        <select id="pago-dia" class="campo"></select>
+        <input id="pago-hora" type="time" class="campo">
+      </div>
+    </div>
+
+    <div>
+      <label class="et" for="zona">Zona horaria</label>
+      <input id="zona" type="text" list="zonas" class="campo" autocomplete="off">
+      <datalist id="zonas">
+        <option value="America/Argentina/Buenos_Aires">
+        <option value="America/Montevideo">
+        <option value="America/Santiago">
+        <option value="America/Bogota">
+        <option value="America/Lima">
+        <option value="America/Mexico_City">
+        <option value="Europe/Madrid">
+        <option value="UTC">
+      </datalist>
+      <p class="text-[11px] text-slate-400 mt-1">Si publicas la tienda en un servidor en internet, confirma aquí tu zona: esos servidores suelen usar la hora UTC.</p>
+    </div>
+
+    <p id="error" class="text-xs text-rose-600 font-medium"></p>
+    <button onclick="guardar()" class="w-full bg-emerald-600 active:bg-emerald-700 text-white font-semibold py-3 rounded-2xl shadow-sm">Guardar</button>
+  </div>
+</main>
+
+<div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-[60] bg-slate-900 text-white text-xs px-4 py-2 rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+<script src="/admin/horarios.js"></script>
+</body>
+</html>
